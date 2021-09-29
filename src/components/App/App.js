@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { fetchOrders } from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
@@ -10,15 +10,16 @@ const App = () => {
   const getOrders = async () => {
     const res = await fetchOrders();
     const ordersData = await res.json();
-    setOrders(ordersData);
+    setOrders(ordersData.orders);
   };
+
   useEffect(() => {
     try {
       getOrders();
     } catch (error) {
       console.log(error.message);
     }
-  });
+  }, [orders]);
 
   return (
     <main className="App">
@@ -26,7 +27,7 @@ const App = () => {
         <h1>Burrito Builder</h1>
         <OrderForm />
       </header>
-      {/* <Orders /> */}
+      <Orders orders={orders} />
     </main>
   );
 };
