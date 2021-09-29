@@ -6,7 +6,7 @@ const Orders = ({ orders }) => {
   const orderList = () => {
     return orders.map((order) => {
       return (
-        <div className="order">
+        <div className="order" key={order.id}>
           <h3>{order.name}</h3>
           <ul className="ingredient-list">
             {order.ingredients.map((ingredient) => {
