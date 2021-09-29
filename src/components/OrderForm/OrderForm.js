@@ -19,7 +19,9 @@ const OrderForm = ({ addOrder }) => {
 
   const addIngredients = (e) => {
     e.preventDefault();
-    setIngredients([...ingredients, e.target.name]);
+    if (!ingredients.includes(e.target.name)) {
+      setIngredients([...ingredients, e.target.name]);
+    }
   };
 
   const possibleIngredients = [
