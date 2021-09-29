@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import {getOrders} from '../../apiCalls';
+import { getOrders } from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -10,8 +10,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    getOrders()
-      .catch(err => console.error('Error fetching:', err));
+    getOrders().catch((err) => console.error('Error fetching:', err));
   }
 
   render() {
@@ -22,11 +21,10 @@ class App extends Component {
           <OrderForm />
         </header>
 
-        <Orders orders={this.state.orders}/>
+        {/* <Orders /> */}
       </main>
     );
   }
 }
-
 
 export default App;
