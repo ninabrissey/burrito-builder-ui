@@ -45,4 +45,34 @@ describe('Order page', () => {
     cy.get('li').eq(3).contains('guacamole');
     cy.get('li').eq(4).contains('lettuce');
   });
+
+  it('should be able to capture input values and add/post an order', () => {
+    cy.intercept(
+      { method: 'POST', url: 'http://localhost:3001/api/v1/orders' },
+      {
+        statusCode: 200,
+        body: {
+          id: 4,
+          name: 'Heather',
+          ingredients: ['guacamole', 'steak'],
+        },
+      }
+    );
+    cy.get('input[type="text"]').type('Heather');
+    cy.get('button').eq(9).click();
+    cy.get('button').eq(2).click();
+    cy.get('button').contains('Submit Order').click();
+    cy.get('li').eq(10).contains('guacamole');
+    cy.get('li').eq(11).contains('steak');
+  });
+
+  it('should not submit an order if there is not at least one ingredient selected', () => {
+    cy.get('input[type="text"]').type('Lindsay');
+    cy.get('button').contains('Submit Order').click();
+  });
+
+  it('should not be able to submit an order if there is not a name in the input', () => {
+    cy.get('button').contains('beans').click();
+    cy.get('button').contains('Submit Order').click();
+  });
 });
