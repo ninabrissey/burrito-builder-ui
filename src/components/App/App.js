@@ -19,7 +19,7 @@ const App = () => {
     } catch (error) {
       console.log(error.message);
     }
-  }, [orders]);
+  }, []);
 
   return (
     <main className="App">
