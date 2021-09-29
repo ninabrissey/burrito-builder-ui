@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
-const OrderForm = () => {
+const OrderForm = ({ addOrder }) => {
   const [name, setName] = useState('');
   const [ingredients, setIngredients] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    clearInputs();
+    if (ingredients.length && name) {
+      addOrder({ id: Date.now(), name: name, ingredients: ingredients });
+      clearInputs();
+    }
   };
 
   const clearInputs = () => {
@@ -53,11 +55,12 @@ const OrderForm = () => {
         name="name"
         value={name}
         onChange={(e) => setName(e.target.value)}
+        required
       />
 
       {ingredientButtons}
-
-      <p>Order: {ingredients.join(', ') || 'Nothing selected'}</p>
+      <p>Name: {name || 'add name to order'}</p>
+      <p>Order: {ingredients.join(', ') || 'Nothing selected - add items'}</p>
 
       <button onClick={(e) => handleSubmit(e)}>Submit Order</button>
     </form>
