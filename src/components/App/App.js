@@ -8,9 +8,13 @@ const App = () => {
   const [orders, setOrders] = useState();
 
   const getOrders = async () => {
-    const res = await fetchOrders();
-    const ordersData = await res.json();
-    setOrders(ordersData.orders);
+    try {
+      const res = await fetchOrders();
+      const ordersData = await res.json();
+      setOrders(ordersData.orders);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const addOrder = async (newOrder) => {
@@ -24,11 +28,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    try {
-      getOrders();
-    } catch (error) {
-      console.log(error.message);
-    }
+    getOrders();
   }, []);
 
   return (
